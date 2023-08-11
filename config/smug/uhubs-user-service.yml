@@ -1,0 +1,20 @@
+session: uhubs-user-service
+
+root: /home/lg/Works/uhubs-user-service/
+
+windows:
+  - name: code
+    commands: 
+    - nvim 
+  - name: dev
+    commands: 
+    - docker-compose up -d && npm run watch-debug
+  - name: git
+    commands: 
+    - git status 
+  - name: CLOUD_SQL
+    commands:
+    - ~/cloud_sql_proxy -instances=zeta-envoy-291317:europe-west1:db-user-service-staging=tcp:5434
+  # - name: postgres
+  #   commands:
+  #   - psql "host=127.0.0.1 port=5432 sslmode=disable dbname=user_service user=postgres"

@@ -1,0 +1,22 @@
+session: tool-reseller-api
+
+root: /home/lg/Works/tool-reseller-api/
+
+windows:
+  - name: code 
+    commands: 
+    - nvim 
+  - name: run
+    manual: true
+    commands:
+    - mix phx.server
+  - name: test
+    commands:
+    - docker-compose up -d
+  - name: db
+    manual: true
+    commands:
+    - docker-compose up -d
+  - name: git
+    commands: 
+    - git status 

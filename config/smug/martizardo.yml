@@ -1,0 +1,11 @@
+session: martizardo
+
+root: /home/lg/Works/marti-zardo/
+
+windows:
+  - name: code 
+    commands: 
+    - nvim 
+  - name: git
+    commands: 
+    - git status 

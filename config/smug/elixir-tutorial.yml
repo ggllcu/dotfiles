@@ -1,0 +1,11 @@
+session: elixir-tutorial
+
+root: /home/lg/exercism/elixir
+
+windows:
+  - name: code 
+    commands: 
+    - nvim 
+  - name: git
+    commands: 
+    - git status 

@@ -1,0 +1,14 @@
+session: gardaadventure
+
+root: /home/lg/Works/gardaadventure/
+
+windows:
+  - name: code 
+    commands: 
+    - nvim 
+  - name: run
+    commands:
+    - npm run dev -- --open
+  - name: git
+    commands: 
+    - git status 

@@ -1,0 +1,14 @@
+session: rabbitmq-client
+
+root: /home/lg/Works/rabbitmq-stream-js-client/
+
+windows:
+  - name: code 
+    commands: 
+    - nvim 
+  - name: dev
+    commands: 
+    - docker-compose up -d
+  - name: git
+    commands: 
+    - git status 

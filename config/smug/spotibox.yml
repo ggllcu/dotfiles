@@ -1,0 +1,21 @@
+session: spotibox
+
+root: /home/lg/Works/spotibox/
+
+windows:
+  - name: code 
+    commands: 
+    - nvim 
+  - name: run
+    commands:
+    - mix phx.server
+  - name: test
+    manual: true
+    commands:
+    - mix test
+  - name: db
+    commands:
+    - docker-compose up -d
+  - name: git
+    commands: 
+    - git status 

@@ -1,0 +1,14 @@
+session: presentazione_vim
+
+root: /home/lg/Works/presentazione_vim/
+
+windows:
+  - name: code 
+    commands: 
+    - nvim 
+  - name: dev
+    commands: 
+    - npm start
+  - name: git
+    commands: 
+    - git status 

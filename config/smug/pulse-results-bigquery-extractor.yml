@@ -1,0 +1,20 @@
+session: pulse-results-bigquery-extractor
+
+root: /home/lg/Works/pulse-results-bigquery-extractor/
+
+windows:
+  - name: code 
+    commands: 
+    - nvim 
+  - name: dev
+    commands: 
+    - direnv reload && npm run watch-debug
+  - name: git
+    commands: 
+    - git status 
+  # - name: postgres
+  #   commands: 
+  #   - psql "host=127.0.0.1 port=5432 sslmode=disable dbname=uhubs-dev user=postgres"
+  - name: CLOUD_SQL
+    commands: 
+    - ~/cloud_sql_proxy -instances=zeta-envoy-291317:europe-west1:db-pulse-results=tcp:5432

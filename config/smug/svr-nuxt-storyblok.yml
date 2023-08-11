@@ -1,0 +1,14 @@
+session: svr-nuxt-storyblok
+
+root: /home/lg/Works/svr-nuxt-storyblok/
+
+windows:
+  - name: code 
+    commands: 
+    - nvim 
+  - name: dev
+    commands: 
+    - npm run dev
+  - name: git
+    commands: 
+    - git status 
