@@ -59,8 +59,9 @@ require('lazy').setup({
 
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
+
+  -- Adds git related signs to the gutter, as well as utilities for managing changes
   {
-    -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
       -- See `:help gitsigns.txt`
@@ -79,7 +80,7 @@ require('lazy').setup({
     },
   },
 
-  { "EdenEast/nightfox.nvim" } -- lazy
+  { "EdenEast/nightfox.nvim" },
 
   {
     -- Set lualine as statusline
@@ -127,7 +128,13 @@ require('lazy').setup({
           return vim.fn.executable 'make' == 1
         end,
       },
+      'nvim-telescope/telescope-live-grep-args.nvim',
+      'nvim-telescope/telescope-file-browser.nvim'
     },
+    config = function()
+      require("telescope").load_extension("live_grep_args")
+      require("telescope").load_extension "file_browser"
+    end
   },
 
   {
@@ -138,21 +145,21 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
+})
 
-  -- Remap for dealing with word wrap
-  vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-  vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- Remap for dealing with word wrap
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-  -- [[ Highlight on yank ]]
-  -- See `:help vim.highlight.on_yank()`
-  local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-  vim.api.nvim_create_autocmd('TextYankPost', {
-    callback = function()
-      vim.highlight.on_yank()
-    end,
-    group = highlight_group,
-    pattern = '*',
-  })
+-- [[ Highlight on yank ]]
+-- See `:help vim.highlight.on_yank()`
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = '*',
 })
 
 require('nightfox').setup({
@@ -161,3 +168,108 @@ require('nightfox').setup({
   }
 })
 vim.cmd("colorscheme nightfox")
+
+-- [[ Configure Treesitter ]]
+-- See `:help nvim-treesitter`
+require('nvim-treesitter.configs').setup {
+  -- Add languages to be installed here that you want installed for treesitter
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
+
+  -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
+  auto_install = false,
+
+  highlight = { enable = true },
+  indent = { enable = true },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = '<c-space>',
+      node_incremental = '<c-space>',
+      scope_incremental = '<c-s>',
+      node_decremental = '<M-space>',
+    },
+  },
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ['aa'] = '@parameter.outer',
+        ['ia'] = '@parameter.inner',
+        ['af'] = '@function.outer',
+        ['if'] = '@function.inner',
+        ['ac'] = '@class.outer',
+        ['ic'] = '@class.inner',
+      },
+    },
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        [']m'] = '@function.outer',
+        [']]'] = '@class.outer',
+      },
+      goto_next_end = {
+        [']M'] = '@function.outer',
+        [']['] = '@class.outer',
+      },
+      goto_previous_start = {
+        ['[m'] = '@function.outer',
+        ['[['] = '@class.outer',
+      },
+      goto_previous_end = {
+        ['[M'] = '@function.outer',
+        ['[]'] = '@class.outer',
+      },
+    },
+    swap = {
+      enable = true,
+      swap_next = {
+        ['<leader>a'] = '@parameter.inner',
+      },
+      swap_previous = {
+        ['<leader>A'] = '@parameter.inner',
+      },
+    },
+  },
+}
+
+-- [[ Configure Telescope ]]
+-- See `:help telescope` and `:help telescope.setup()`
+require('telescope').setup {
+  defaults = {
+    mappings = {
+      i = {
+        ['<C-u>'] = false,
+        ['<C-d>'] = false,
+      },
+    },
+  },
+}
+
+-- Enable telescope fzf native, if installed
+pcall(require('telescope').load_extension, 'fzf')
+
+-- See `:help telescope.builtin`
+vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
+vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader>/', function()
+  -- You can pass additional configuration to telescope to change theme, layout, etc.
+  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+    winblend = 10,
+    previewer = false,
+  })
+end, { desc = '[/] Fuzzily search in current buffer' })
+
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', function() builtin.git_files() end, { desc = '[F]ind Git [f]iles' })
+vim.keymap.set('n', '<leader>faf', function() builtin.find_files({ no_ignore = true }) end, { desc = '[F]ind [A]ll [F]iles' })
+vim.keymap.set('n', '<leader>fh', function() builtin.help_tags() end, { desc = '[F]ind [H]elp' })
+vim.keymap.set('n', '<leader>fw', function() builtin.grep_string() end, { desc = '[F]ind current [W]ord' })
+vim.keymap.set('n', '<leader>fg', function() builtin.live_grep() end, { desc = '[F]ind by [G]rep' })
+vim.keymap.set('n', '<leader>fd', function() builtin.diagnostics() end, { desc = '[F]ind [D]iagnostics' })
+
+vim.keymap.set('n', '<leader>fag', function() require("telescope").extensions.live_grep_args.live_grep_args() end, { desc = '[F]ind [A]rgs [G]rep' })
+vim.keymap.set('n', '<leader>fe', function() require("telescope").extensions.file_browser.file_browser() end, { desc = '[F]ile [E]xplorer' })
+vim.keymap.set('n', '<leader>fce', function() require("telescope").extensions.file_browser.file_browser() end, { desc = '[F]ile [C]wd [E]xplorer' })
