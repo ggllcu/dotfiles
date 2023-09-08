@@ -151,8 +151,8 @@ require('lazy').setup({
 
   {
     'windwp/nvim-autopairs',
-    event = "InsertEnter",
-    opts = {} -- this is equalent to setup({}) function
+    event = 'InsertEnter',
+    opts = {}
   },
 
   {
@@ -175,6 +175,11 @@ require('lazy').setup({
   },
 
   {'RRethy/vim-illuminate'},
+
+  {'vim-test/vim-test'},
+
+  -- Notes
+  {'nvim-neorg/neorg'}
 })
 
 -- Remap for dealing with word wrap
@@ -302,7 +307,7 @@ vim.keymap.set('n', '<leader>fd', function() builtin.diagnostics() end, { desc =
 
 vim.keymap.set('n', '<leader>fag', function() require("telescope").extensions.live_grep_args.live_grep_args() end, { desc = '[F]ind [A]rgs [G]rep' })
 vim.keymap.set('n', '<leader>fe', function() require("telescope").extensions.file_browser.file_browser() end, { desc = '[F]ile [E]xplorer' })
-vim.keymap.set('n', '<leader>fce', function() require("telescope").extensions.file_browser.file_browser() end, { desc = '[F]ile [C]wd [E]xplorer' })
+vim.keymap.set('n', '<leader>fce', function() require("telescope").extensions.file_browser.file_browser({path = "%:p:h"}) end, { desc = '[F]ile [C]wd [E]xplorer' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
@@ -356,6 +361,34 @@ require('neodev').setup()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+local mason_lspconfig = require 'mason-lspconfig'
+
+-- Enable the following language servers
+local servers = {
+  elixirls = {},
+  lua_ls = {
+    Lua = {
+      workspace = { checkThirdParty = false },
+      telemetry = { enable = false },
+    },
+  },
+}
+
+-- Ensure the servers above are installed
+mason_lspconfig.setup {
+  ensure_installed = vim.tbl_keys(servers),
+}
+
+mason_lspconfig.setup_handlers {
+  function(server_name)
+    require('lspconfig')[server_name].setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = servers[server_name],
+      filetypes = (servers[server_name] or {}).filetypes,
+    }
+  end
+}
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
@@ -404,4 +437,18 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+vim.cmd [[
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
+]]
+
+vim.cmd [[
+set winbar=%=%m\ %f 
+]]
+
+
 
