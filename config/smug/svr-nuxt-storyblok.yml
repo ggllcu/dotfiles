@@ -1,6 +1,6 @@
 session: svr-nuxt-storyblok
 
-root: /home/lg/Works/svr-nuxt-storyblok/
+root: ~/works/svr-nuxt-storyblok/
 
 windows:
   - name: code 

@@ -1,6 +1,6 @@
-session: athonet-dashboard-backend
+session: athonet-dashboard-athux-backend
 
-root: ~/works/dashboard/backend/
+root: /home/lucaguglielmi/works/dashboard-athux/backend/
 
 windows:
   - name: code 

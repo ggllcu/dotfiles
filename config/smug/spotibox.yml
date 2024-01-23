@@ -1,6 +1,6 @@
 session: spotibox
 
-root: /home/lg/Works/spotibox/
+root: ~/works/spotibox/
 
 windows:
   - name: code 

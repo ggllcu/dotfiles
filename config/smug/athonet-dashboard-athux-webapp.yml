@@ -1,6 +1,6 @@
-session: athonet-dashboard-webapp
+session: athonet-dashboard-athux-webapp
 
-root: ~/works/dashboard/webapp/
+root: /home/lucaguglielmi/works/dashboard-athux/webapp/
 
 windows:
   - name: code 

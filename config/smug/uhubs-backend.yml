@@ -1,6 +1,6 @@
 session: uhubs-backend
 
-root: /home/lg/Works/uhubs-backend/
+root: ~/works/uhubs-backend/
 
 windows:
   - name: code 

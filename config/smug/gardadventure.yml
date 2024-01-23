@@ -1,6 +1,6 @@
 session: gardaadventure
 
-root: /home/lg/Works/gardaadventure/
+root: ~/works/gardaadventure/
 
 windows:
   - name: code 

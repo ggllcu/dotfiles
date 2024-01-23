@@ -1,6 +1,6 @@
 session: pulse-results-bigquery-extractor
 
-root: /home/lg/Works/pulse-results-bigquery-extractor/
+root: ~/works/pulse-results-bigquery-extractor/
 
 windows:
   - name: code 

@@ -1,6 +1,6 @@
 session: tool-reseller-api
 
-root: /home/lg/Works/tool-reseller-api/
+root: ~/works/tool-reseller-api/
 
 windows:
   - name: code 

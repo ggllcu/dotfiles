@@ -1,6 +1,6 @@
 session: uhubs-frontend
 
-root: /home/lg/Works/uhubs-frontend/
+root: ~/works/uhubs-frontend/
 
 windows:
   - name: code 

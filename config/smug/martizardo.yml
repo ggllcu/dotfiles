@@ -1,6 +1,6 @@
 session: martizardo
 
-root: /home/lg/Works/marti-zardo/
+root: ~/works/marti-zardo/
 
 windows:
   - name: code 

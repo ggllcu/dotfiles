@@ -1,6 +1,6 @@
 session: presentazione_vim
 
-root: /home/lg/Works/presentazione_vim/
+root: ~/works/presentazione_vim/
 
 windows:
   - name: code 

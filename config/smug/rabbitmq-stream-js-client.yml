@@ -1,6 +1,6 @@
 session: rabbitmq-client
 
-root: /home/lg/Works/rabbitmq-stream-js-client/
+root: ~/works/rabbitmq-stream-js-client/
 
 windows:
   - name: code 

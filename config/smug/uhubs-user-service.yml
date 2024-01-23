@@ -1,6 +1,6 @@
 session: uhubs-user-service
 
-root: /home/lg/Works/uhubs-user-service/
+root: ~/works/uhubs-user-service/
 
 windows:
   - name: code

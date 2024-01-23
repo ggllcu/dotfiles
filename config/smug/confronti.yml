@@ -1,11 +1,14 @@
-session: elixir-tutorial
+session: confronti
 
-root: ~/exercism/elixir
+root: ~/works/confronti
 
 windows:
   - name: code 
     commands: 
     - nvim 
+  - name: dev
+    commands: 
+    - npm run dev
   - name: git
     commands: 
     - git status 
