@@ -41,6 +41,7 @@ require('lazy').setup({
     },
   },
 
+  {'onsails/lspkind.nvim'},
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -49,8 +50,10 @@ require('lazy').setup({
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
 
-      -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
 
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
@@ -80,7 +83,7 @@ require('lazy').setup({
     },
   },
 
-  { "EdenEast/nightfox.nvim" },
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
   {
     -- Set lualine as statusline
@@ -99,12 +102,9 @@ require('lazy').setup({
   {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
+    main = "ibl",
+    opts = {}, -- Todo: change char
   },
 
   -- "gc" to comment visual regions/lines
@@ -147,7 +147,6 @@ require('lazy').setup({
   },
 
   {'ggandor/leap.nvim'},
-  {'github/copilot.vim'},
 
   {
     'windwp/nvim-autopairs',
@@ -160,16 +159,16 @@ require('lazy').setup({
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
     config = function()
-        require("nvim-surround").setup({
-            -- Configuration here, or leave empty to use defaults
-        })
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
     end
   },
 
   {
     'numToStr/Comment.nvim',
     opts = {
-        -- add any options here
+      -- add any options here
     },
     lazy = false,
   },
@@ -179,7 +178,54 @@ require('lazy').setup({
   {'vim-test/vim-test'},
 
   -- Notes
-  {'nvim-neorg/neorg'}
+  {'nvim-neorg/neorg'},
+
+  {
+    'Exafunction/codeium.vim',
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "hrsh7th/nvim-cmp",
+    },
+    event = 'BufEnter'
+  },
+
+  -- Required from noice
+  {'MunifTanjim/nui.nvim'},
+  {'rcarriga/nvim-notify',
+    opts = {
+      -- other stuff
+      background_colour = "#000000"
+    }
+  },
+
+  -- Command prompt
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      "rcarriga/nvim-notify",
+    }
+  },
+
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    }
+  },
+
 })
 
 -- Remap for dealing with word wrap
@@ -197,18 +243,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
-require('nightfox').setup({
-  options = {
-    transparent = true,     -- Disable setting background
-  }
+require("catppuccin").setup({
+    flavour = "frappe", -- latte, frappe, macchiato, mocha
+    transparent_background = true, -- disables setting the background color.
 })
-vim.cmd("colorscheme nightfox")
+vim.cmd("colorscheme catppuccin")
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = {'lua', 'vimdoc', 'vim'},
+  ensure_installed = {'lua', 'vimdoc', 'vim', 'regex'},
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -357,10 +402,6 @@ end
 -- Setup neovim lua configuration
 require('neodev').setup()
 
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
 local mason_lspconfig = require 'mason-lspconfig'
 
 -- Enable the following language servers
@@ -390,53 +431,6 @@ mason_lspconfig.setup_handlers {
   end
 }
 
--- [[ Configure nvim-cmp ]]
--- See `:help cmp`
-local cmp = require 'cmp'
-local luasnip = require 'luasnip'
-require('luasnip.loaders.from_vscode').lazy_load()
-luasnip.config.setup {}
-
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert {
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-  },
-}
 
 vim.cmd [[
 nmap <silent> <leader>t :TestNearest<CR>
