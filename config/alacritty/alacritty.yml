@@ -1,0 +1,39 @@
+window:
+  # Window dimensions (changes require restart)
+  #
+  # Specified in number of columns/lines, not pixels. If both are zero this
+  # setting is ignored.
+  dimensions:
+    columns: 100
+    lines: 40
+
+  # Window padding (changes require restart)
+  #
+  # Blank space added around the window in pixels. This padding is not scaled by
+  # DPI and the specified value is always added at both opposing sides.
+  padding:
+    x: 10
+    y: 10
+
+  # decorations: none
+
+  opacity: 0.95
+
+font:
+  # The normal (roman) font face to use.
+  # Style can be specified to pick a specific face.
+  normal:
+    # style: Light
+    family: "Hack Nerd Font Mono"
+
+  # The bold font face
+  bold:
+    # style: Medium
+    family: "Hack Nerd Font Mono"
+
+  # The italic font face
+  italic:
+    style: "Light Italic"
+    family: "Hack Nerd Font Mono"
+
+  size: 12.0
