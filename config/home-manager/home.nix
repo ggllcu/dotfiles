@@ -1,17 +1,17 @@
 { config, pkgs, ... }:
 
 let
-  tmux-super-fingers = pkgs.tmuxPlugins.mkTmuxPlugin
-    {
-      pluginName = "tmux-super-fingers";
-      version = "unstable-2023-01-06";
-      src = pkgs.fetchFromGitHub {
-        owner = "artemave";
-        repo = "tmux_super_fingers";
-        rev = "2c12044984124e74e21a5a87d00f844083e4bdf7";
-        sha256 = "sha256-cPZCV8xk9QpU49/7H8iGhQYK6JwWjviL29eWabuqruc=";
-      };
-    };
+tmux-super-fingers = pkgs.tmuxPlugins.mkTmuxPlugin
+{
+  pluginName = "tmux-super-fingers";
+  version = "unstable-2023-01-06";
+  src = pkgs.fetchFromGitHub {
+    owner = "artemave";
+    repo = "tmux_super_fingers";
+    rev = "2c12044984124e74e21a5a87d00f844083e4bdf7";
+    sha256 = "sha256-cPZCV8xk9QpU49/7H8iGhQYK6JwWjviL29eWabuqruc=";
+  };
+};
 in
 {
 # Home Manager needs a bit of information about you and the paths it should
@@ -36,6 +36,7 @@ in
       pkgs.docker
       pkgs.dbeaver
       pkgs.docker-compose
+      pkgs.gnomeExtensions.pano
       pkgs.gimp
       pkgs.monaspace
       pkgs.neovim
@@ -115,19 +116,13 @@ in
       extraConfig = "set -g @super-fingers-key f";
     }
     tmuxPlugins.better-mouse-mode
-    tmuxPlugins.vim-tmux-navigator
-    tmuxPlugins.sensible
-    {
-      plugin = tmuxPlugins.catppuccin;
-      extraConfig = '' 
-        set -g @catppuccin_flavour 'frappe'
-        '';
-    }
+      tmuxPlugins.vim-tmux-navigator
+      tmuxPlugins.sensible
     ];
     extraConfig = ''
-    # Start windows and panes index at 1, not 0.
-set -g base-index 1
-setw -g pane-base-index 1
+# Start windows and panes index at 1, not 0.
+      set -g base-index 1
+      setw -g pane-base-index 1
       '';
   };
 

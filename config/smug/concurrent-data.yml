@@ -1,0 +1,14 @@
+session: concurrent-data
+
+root: ~/works/sender
+
+windows:
+  - name: code 
+    commands: 
+    - nvim 
+  - name: dev
+    commands: 
+    - iex -S mix
+  - name: git
+    commands: 
+    - git status 

@@ -26,6 +26,8 @@ set ttimeout
 set ttimeoutlen=300
 set updatetime=250
 set wildmenu
+set cursorline
+set cursorcolumn
 syntax enable
 
 " better windows navigation
