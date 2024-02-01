@@ -1,0 +1,8 @@
+session: dotfiles
+
+root: ~/dotfiles
+
+windows:
+  - name: code 
+    commands: 
+    - nvim 

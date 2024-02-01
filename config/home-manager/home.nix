@@ -41,6 +41,7 @@ in
       pkgs.neovim
       pkgs.nodejs_20
       pkgs.erlang_24
+      pkgs.rebar3
       pkgs.elixir_1_16
       pkgs.ripgrep
       pkgs.smug

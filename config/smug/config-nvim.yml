@@ -1,0 +1,8 @@
+session: config-nvim
+
+root: ~/dotfiles/config/nvim/
+
+windows:
+  - name: code 
+    commands: 
+    - nvim 
