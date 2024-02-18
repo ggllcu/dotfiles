@@ -31,33 +31,39 @@ in
 # The home.packages option allows you to install Nix packages into your
 # environment.
     fonts.fontconfig.enable = true;
-  home.packages = [
-    pkgs.chromium
-      pkgs.docker
-      pkgs.dbeaver
-      pkgs.docker-compose
-      pkgs.gnomeExtensions.pano
-      pkgs.gimp
-      pkgs.monaspace
-      pkgs.neovim
-      pkgs.nodejs_20
-      pkgs.erlang_24
-      pkgs.rebar3
-      pkgs.elixir_1_16
-      pkgs.ripgrep
-      pkgs.smug
-      pkgs.inotify-tools
+  home.packages = with pkgs; [
+    stow
+    fzf
+    bat
+    eza
+    cargo
+      jq
+      chromium
+      docker
+      dbeaver
+      docker-compose
+      gnomeExtensions.pano
+      gimp
+      monaspace
+      neovim
+      nodejs_20
+      erlang_24
+      rebar3
+      elixir_1_16
+      ripgrep
+      smug
+      inotify-tools
 
 # # It is sometimes useful to fine-tune packages, for example, by applying
 # # overrides. You can do that directly here, just don't forget the
 # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
 # # fonts?
-      (pkgs.nerdfonts.override { fonts = [ "FiraCode" "Hack" ]; })
+      (nerdfonts.override { fonts = [ "FiraCode" "Hack" ]; })
 
 # # You can also create simple shell scripts directly inside your
 # # configuration. For example, this adds a command 'my-hello' to your
 # # environment:
-# (pkgs.writeShellScriptBin "my-hello" ''
+# (writeShellScriptBin "my-hello" ''
 #   echo "Hello, ${config.home.username}!"
 # '')
       ];
@@ -89,11 +95,14 @@ in
 #  /etc/profiles/per-user/lucaguglielmi/etc/profile.d/hm-session-vars.sh
 #
   home.sessionVariables = {
-# EDITOR = "emacs";
+    EDITOR = "nvim";
   };
 
   programs.fish = {
     enable = true;
+    interactiveShellInit = ''
+      source ~/.asdf/asdf.fish
+    '';
 
     plugins = [
     { name = "plugin-git"; src = pkgs.fishPlugins.plugin-git.src; }
@@ -118,9 +127,11 @@ in
     tmuxPlugins.better-mouse-mode
       tmuxPlugins.vim-tmux-navigator
       tmuxPlugins.sensible
+      # tmuxPlugins.catppuccin
     ];
     extraConfig = ''
-# Start windows and panes index at 1, not 0.
+      # Start windows and panes index at 1, not 0.
+      set-option -sa terminal-overrides ",xterm*:Tc"
       set -g base-index 1
       setw -g pane-base-index 1
       '';

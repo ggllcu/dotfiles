@@ -72,7 +72,6 @@ return {
 
     local servers = {
         "cssls",
-        "elixirls",
         "html",
         "tsserver",
     }
@@ -83,7 +82,6 @@ return {
         capabilities = capabilities,
       }
     end
-
 
     -- configure svelte server
     lspconfig["svelte"].setup({
