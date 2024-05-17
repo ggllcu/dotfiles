@@ -14,6 +14,7 @@ tmux-super-fingers = pkgs.tmuxPlugins.mkTmuxPlugin
 };
 in
 {
+  nixpkgs.config.allowUnfree = true;
 # Home Manager needs a bit of information about you and the paths it should
 # manage.
   home.username = "lg";
@@ -32,33 +33,36 @@ in
 # environment.
     fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
+    # warp-terminal
     firefox
-    kitty
+    postman
+    chromium
+    go-task
+    btop
     wl-clipboard
     clipboard-jh
     tldr
-      asdf-vm
+    kitty
       stow
       fzf
       bat
       eza
       cargo
       jq
-      chromium
-      docker
-      dbeaver
-      docker-compose
       gnomeExtensions.pano
       gimp
       monaspace
       neovim
-      nodejs_20
-      erlang_24
-      rebar3
+      erlang_26
       elixir_1_16
       ripgrep
       smug
       inotify-tools
+      thefuck
+      zoxide
+      # nushell
+      # zsh
+      starship
 
 # # It is sometimes useful to fine-tune packages, for example, by applying
 # # overrides. You can do that directly here, just don't forget the
@@ -104,21 +108,13 @@ in
     EDITOR = "nvim";
   };
 
-  programs.bash = {
-    enable = true;
-    initExtra = ''
-      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
-        then
-          shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-          exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
-          fi
-          '';
-  };
+  programs.bash.enable = true;
 
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
-      source "$HOME/.nix-profile/share/asdf-vm/asdf.fish"
+      source ~/.asdf/asdf.fish;
+      # mkdir -p ~/.config/fish/completions; and ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
     '';
 
     plugins = [
@@ -132,7 +128,6 @@ in
 
   programs.tmux = {
     enable = true;
-    shell = "${pkgs.fish}/bin/fish";
     terminal = "tmux-256color";
     historyLimit = 100000;
     plugins = with pkgs;
@@ -151,6 +146,8 @@ in
       set-option -sa terminal-overrides ",xterm*:Tc"
       set -g base-index 1
       setw -g pane-base-index 1
+
+      set-window-option -g mode-keys vi
       '';
   };
 
