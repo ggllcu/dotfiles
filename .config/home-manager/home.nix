@@ -42,7 +42,6 @@ in
     wl-clipboard
     clipboard-jh
     tldr
-    kitty
     stow
     fzf
     bat
