@@ -57,6 +57,3 @@ inoremap kj <Esc>
 
 set splitbelow
 set splitright
-
-" let g:codeium_disable_bindings = 1
-let g:codeium_no_map_tab = 1
