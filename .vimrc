@@ -17,7 +17,6 @@ set laststatus=3
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 set path+=**
 set nu
-set rnu
 set scrolloff=4
 set smartcase
 set smarttab
@@ -46,17 +45,9 @@ nnoremap <silent> <C-Down>  :resize +2<CR>
 nnoremap <silent> <C-Left>  :vertical resize -2<CR>
 nnoremap <silent> <C-Right> :vertical resize +2<CR>
 
-" better tabbing
-nnoremap <silent> <Tab> :bnext<CR>
-nnoremap <silent> <S-Tab> :bprevious<CR>
-nnoremap <silent> <Leader>bd :bdelete<CR>
-
 " remap jk to escape
 inoremap jk <Esc>
 inoremap kj <Esc>
 
 set splitbelow
 set splitright
-
-" let g:codeium_disable_bindings = 1
-let g:codeium_no_map_tab = 1
