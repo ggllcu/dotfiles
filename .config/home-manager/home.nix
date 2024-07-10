@@ -35,33 +35,25 @@ in
     # # "Hello, world!" when run.
     # pkgs.hello
 
-    firefox
-    chromium
-    go-task
-    btop
-    wl-clipboard
-    clipboard-jh
-    tldr
-    stow
-    fzf
     bat
-    eza
+    btop
     cargo
+    chromium
+    elixir_1_16
+    erlang_26
+    eza
+    firefox
+    fzf
     jq
-    gnomeExtensions.pano
-    gimp
     monaspace
     neovim
-    erlang_26
-    elixir_1_16
     ripgrep
     smug
-    inotify-tools
-    thefuck
-    zoxide
-    # nushell
-    # zsh
     starship
+    stow
+    thefuck
+    tldr
+    zoxide
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
