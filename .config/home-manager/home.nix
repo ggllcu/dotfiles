@@ -17,7 +17,7 @@ in
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "lg";
-  home.homeDirectory = "/home/lg";
+  home.homeDirectory = "/Users/lg";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -34,19 +34,16 @@ in
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
-
+    asdf-vm
     bat
     btop
     cargo
-    chromium
-    elixir_1_16
-    erlang_26
     eza
-    firefox
     fzf
     jq
     monaspace
     neovim
+    openssl
     ripgrep
     smug
     starship
@@ -106,8 +103,8 @@ in
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
-      source ~/.asdf/asdf.fish;
-      # mkdir -p ~/.config/fish/completions; and ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
+      starship init fish | source
+      source "$HOME/.nix-profile/share/asdf-vm/asdf.fish"
     '';
 
     plugins = [
