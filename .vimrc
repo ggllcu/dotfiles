@@ -17,8 +17,7 @@ set laststatus=3
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 set path+=**
 set nu
-set rnu
-set scrolloff=8
+set scrolloff=4
 set smartcase
 set smarttab
 set termguicolors

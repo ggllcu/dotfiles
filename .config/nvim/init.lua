@@ -13,6 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	require("plugins.auto_session"),
+	require("plugins.btw"),
 	require("plugins.cmp"),
 	require("plugins.conform"),
 	require("plugins.github_theme"),
@@ -20,9 +21,12 @@ require("lazy").setup({
 	require("plugins.leap"),
 	require("plugins.lsp"),
 	require("plugins.lualine"),
+	require("plugins.markdown"),
 	require("plugins.neoscroll"),
+	require("plugins.neotest"),
 	require("plugins.neotree"),
 	require("plugins.oil"),
+	require("plugins.screenkey"),
 	require("plugins.surround"),
 	require("plugins.telescope"),
 	require("plugins.treesitter"),
