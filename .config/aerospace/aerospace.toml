@@ -230,7 +230,7 @@ alt-shift-j = ['join-with down', 'mode main']
 alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
-# Redirects 
+# Redirects
 
 ## Terminal
 [[on-window-detected]]
@@ -248,7 +248,7 @@ run = "move-node-to-workspace B"
 if.app-id = 'org.mozilla.firefox'
 run = "move-node-to-workspace B"
 [[on-window-detected]]
-if.app-id = 'org.mozilla.com.zen.browser'
+if.app-id = 'app.zen-browser.zen'
 run = "move-node-to-workspace B"
 
 # Chat
@@ -271,4 +271,3 @@ run = "move-node-to-workspace M"
 [[on-window-detected]]
 if.app-id = 'com.apple.mail'
 run = "move-node-to-workspace M"
-
