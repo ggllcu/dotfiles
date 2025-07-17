@@ -1,6 +1,6 @@
-. "$HOME/.asdf/asdf.sh"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+eval "$(mise activate zsh)"
 
 if [[ ! -f $HOME/.zi/bin/zi.zsh ]]; then
   print -P "%F{33}▓▒░ %F{160}Installing (%F{33}z-shell/zi%F{160})…%f"
@@ -14,3 +14,7 @@ autoload -Uz _zi
 (( ${+_comps} )) && _comps[zi]=_zi
 # examples here -> https://wiki.zshell.dev/ecosystem/category/-annexes
 zicompinit # <- https://wiki.zshell.dev/docs/guides/commands
+
+# Added by Windsurf
+export PATH="/Users/lg/.codeium/windsurf/bin:$PATH"
+eval "$(mise activate zsh)" # this sets up interactive sessions
