@@ -17,9 +17,6 @@ vim.opt.relativenumber = true
 -- Show line under cursor
 vim.opt.cursorline = true
 
--- Store undos between sessions
-vim.opt.undofile = true
-
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = "a"
 
@@ -45,4 +42,3 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 4
-
