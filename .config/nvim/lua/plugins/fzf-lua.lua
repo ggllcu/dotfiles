@@ -32,7 +32,7 @@ return {
 		{
 			"<leader>fcg",
 			function()
-				require("fzf-lua").live_grep()
+				require("fzf-lua").live_grep({ cwd = vim.fn.stdpath("config") })
 			end,
 			desc = "Find by grepping in current directory",
 		},
