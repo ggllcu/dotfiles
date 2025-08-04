@@ -42,3 +42,6 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 4
+vim.opt.winborder = "rounded"
+
+vim.wo.winbar = "%=%m %f"

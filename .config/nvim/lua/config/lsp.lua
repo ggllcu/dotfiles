@@ -1,7 +1,6 @@
-vim.lsp.config('lua_ls')
-vim.lsp.enable("lua_ls")
+-- vim.lsp.enable("lua_ls")
+-- vim.lsp.enable("elixirls")
 
--- Diagnostics
 vim.diagnostic.config({
 	-- Use the default configuration
 	-- virtual_lines = true
