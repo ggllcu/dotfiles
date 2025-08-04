@@ -1,0 +1,25 @@
+session: webapp
+
+root: ~/works/dashboard
+
+stop:
+  - docker stop $(docker ps -q)
+
+windows:
+  - name: code
+    focus: true
+    root: webapp
+    layout: main-vertical
+    commands:
+      - nvim
+
+  - name: docker
+    root: dev/webapp
+    layout: main-vertical
+    commands: 
+      - ./shell.sh up
+
+  - name: git 
+    root: .
+    commands:
+      - git status

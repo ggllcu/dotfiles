@@ -6,4 +6,5 @@ zoxide init fish | source
 fzf --fish | source
 pyenv init - | source
 mise activate fish --shims | source
+thefuck --alias | source
 

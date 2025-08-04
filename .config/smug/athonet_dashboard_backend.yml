@@ -1,0 +1,25 @@
+session: backend
+
+root: ~/works/dashboard/
+
+stop:
+  - docker stop $(docker ps -q)
+
+windows:
+  - name: code
+    focus: true
+    root: backend
+    layout: main-vertical
+    commands:
+      - nvim
+
+  - name: docker
+    root: dev
+    layout: main-vertical
+    commands: 
+      - docker compose up -d
+
+  - name: git 
+    root: .
+    commands:
+      - git status
